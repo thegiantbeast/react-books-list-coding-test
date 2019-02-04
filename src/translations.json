@@ -10,7 +10,9 @@
             "sortAuthorName": "Author Name",
             "filter": "Filter List",
             "filterGenre": "Genre",
-            "filterAuthorGender": "Author Gender"
+            "filterAuthorGender": "Author Gender",
+            "filterGenderMale": "Male",
+            "filterGenderFemale": "Female"
         },
         "title": "Book Title",
         "authorName": "Author Name",

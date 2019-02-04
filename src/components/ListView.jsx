@@ -24,12 +24,14 @@ class ListView extends Component {
     state = {
         originalData: null,
         data: null,
+        genre: [],
         dateTimeFormat: new Intl.DateTimeFormat(this.props.i18n.dateTimeFormat)
     }
 
     componentWillReceiveProps(props) {
         if (props.data) {
-            this.setState({ originalData: props.data, data: props.data })
+            const genre = [...new Set(props.data.map(item => item.genre))]
+            this.setState({ originalData: props.data, data: props.data, genre })
         }
     }
 
@@ -79,7 +81,7 @@ class ListView extends Component {
         }
     }
 
-    filterBy = (option) => {
+    filterBy = (field, value) => {
     }
 
     render() {
@@ -88,10 +90,10 @@ class ListView extends Component {
         }
 
         const { classes, i18n } = this.props
-        const { data } = this.state
+        const { data, genre } = this.state
 
         return [
-            <ListToolbar key={0} i18n={i18n} sortBy={this.sortBy} filterBy={this.filterBy} />,
+            <ListToolbar key={0} i18n={i18n} sortBy={this.sortBy} filterBy={this.filterBy} filterGenre={genre} />,
             <ListTable key={1} i18n={i18n}>
                 {data.slice(0, 1000).map((row, idx) => {
                     let icon = null

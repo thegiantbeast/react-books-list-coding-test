@@ -23,7 +23,7 @@ const styles = theme => ({
 
 class ListToolbar extends Component {
     render() {
-        const { classes, i18n, sortBy, filterBy } = this.props
+        const { classes, i18n, sortBy, filterBy, filterGenre } = this.props
 
         return (
             <Toolbar className={classes.root}>
@@ -35,7 +35,7 @@ class ListToolbar extends Component {
                 <div className={classes.spacer} />
                 <div className={classes.actions}>
                     <ListSort i18n={i18n} sortBy={sortBy} />
-                    <ListFilter i18n={i18n} filterBy={filterBy} />
+                    <ListFilter i18n={i18n} filterBy={filterBy} filterGenre={filterGenre} />
                 </div>
             </Toolbar>
         )
