@@ -41,7 +41,7 @@ class ListView extends Component {
     lastFridayDates = []
 
     state = {
-        dateTimeFormat: new Intl.DateTimeFormat('en-GB')
+        dateTimeFormat: new Intl.DateTimeFormat(this.props.i18n.dateTimeFormat)
     }
 
     isLastFridayOfMonth = (date) => {
@@ -65,8 +65,8 @@ class ListView extends Component {
         const { classes, i18n, data } = this.props
 
         return <div>
-            <Tooltip title="Sort list">
-                <IconButton buttonRef={node => { this.sortEl = node }} aria-label="Sort list">
+            <Tooltip title={i18n.list.tooltips.sort}>
+                <IconButton buttonRef={node => { this.sortEl = node }} aria-label={i18n.list.tooltips.sort}>
                     <SortIcon />
                 </IconButton>
             </Tooltip>
@@ -89,8 +89,8 @@ class ListView extends Component {
                     </Grow>
                 )}
             </Popper>
-            <Tooltip title="Filter list">
-                <IconButton buttonRef={node => { this.filterEl = node }} aria-label="Filter list">
+            <Tooltip title={i18n.list.tooltips.filter}>
+                <IconButton buttonRef={node => { this.filterEl = node }} aria-label={i18n.list.tooltips.filter}>
                     <FilterListIcon />
                 </IconButton>
             </Tooltip>

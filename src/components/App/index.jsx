@@ -1,17 +1,7 @@
 import React, {Component} from 'react'
+import i18n from '../../translations.json'
 import Loader from '../Loader'
 import ListView from '../ListView'
-
-const i18n = {
-    loading: 'Loading...',
-    list: {
-        title: 'Book Title',
-        authorName: 'Author Name',
-        authorGender: 'Author Gender',
-        genre: 'Genre',
-        publishDate: 'Publish Date'
-    }
-}
 
 export default class App extends Component {
     state = {

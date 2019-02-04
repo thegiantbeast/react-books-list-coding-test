@@ -1,0 +1,15 @@
+{
+    "dateTimeFormat": "en-GB",
+    "loading": "Loading...",
+    "list": {
+        "tooltips": {
+            "sort": "Sort List",
+            "filter": "Filter List"
+        },
+        "title": "Book Title",
+        "authorName": "Author Name",
+        "authorGender": "Author Gender",
+        "genre": "Genre",
+        "publishDate": "Publish Date"
+    }
+}
