@@ -72,16 +72,27 @@ class ListView extends Component {
         return arr
     }
 
-    sortBy = (option) => {        
-        if (option === 'none') {
-            this.setState({ data: this.state.originalData })
-        } else {
-            option = option === 'book-title' ? 'title' : 'author.name'
-            this.setState({ data: this.sortFn(this.state.originalData, option) })
+    sortBy = (option) => {
+        let fieldName = null
+        switch(option) {
+            case 'book-title':
+                fieldName = 'title'
+                break
+            case 'author-name':
+                fieldName = 'author.name'
+                break
+            default:
+                fieldName = 'default_order'
         }
+        
+        this.setState({ data: this.sortFn(this.state.data, fieldName) })
     }
 
     filterBy = (field, value) => {
+        const data = this.state.data.filter((item) => {
+            return item[field] === value
+        })
+        this.setState({ data })
     }
 
     render() {
@@ -89,48 +100,15 @@ class ListView extends Component {
             return null
         }
 
-        const { classes, i18n } = this.props
-        const { data, genre } = this.state
+        const { i18n } = this.props
+        const { data, genreList } = this.state
 
         return [
-            <ListToolbar key={0} i18n={i18n} sortBy={this.sortBy} filterBy={this.filterBy} filterGenre={genre} />,
+            <ListToolbar key={0} i18n={i18n} sortBy={this.sortBy} filterBy={this.filterBy} genreList={genreList} />,
             <ListTable key={1} i18n={i18n}>
-                {data.slice(0, 1000).map((row, idx) => {
-                    let icon = null
-
-                    const date = new Date(row.publish_date * 1000)
-                    const dateFormatted = this.state.dateTimeFormat.format(date)
-
-                    // display a moon icon if genre is horror and is halloween day
-                    if (row.genre === 'Horror' && date.getDate() === 31 && date.getMonth() === 9) {
-                        icon = <Brightness2Icon className={classes.moon} />
-                    }
-
-                    // display dollar icon if genre is finance and is last friday of the month
-                    // note: to avoid wasting time recalculating dates, an array of pre-calculated dates is checked beforehand
-                    const lastFridayIndex = this.lastFridayDates.indexOf(dateFormatted)
-                    if (row.genre === 'Finance' && (lastFridayIndex >= 0 || this.isLastFridayOfMonth(date))) {
-                        icon = <AttachMoneyIcon />
-                        if (lastFridayIndex < 0) {
-                            this.lastFridayDates.push(dateFormatted)
-                        }
-                    }
-
-                    return (
-                        <TableRow className={classes.row} key={idx}>
-                            <TableCell>{icon}</TableCell>
-                            <TableCell>{row.title}</TableCell>
-                            <TableCell>{row.author.name}</TableCell>
-                            <TableCell>{row.author.gender}</TableCell>
-                            <TableCell>{row.genre}</TableCell>
-                            <TableCell>{dateFormatted}</TableCell>
-                        </TableRow>
-                    )
-                })}
+                <ListItem i18n={i18n} data={data} />
             </ListTable>
         ]
     }
 
 }
-
-export default withStyles(styles)(ListView)

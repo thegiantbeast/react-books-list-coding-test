@@ -49,7 +49,7 @@ class ListFilter extends Component {
     }
 
     render() {
-        const { classes, i18n, filterGenre } = this.props
+        const { classes, i18n, genreList } = this.props
         const { anchorEl } = this.state
 
         return [
@@ -67,7 +67,7 @@ class ListFilter extends Component {
                                 <MenuItem value="">
                                     <em>{i18n.list.tooltips.none}</em>
                                 </MenuItem>
-                                {filterGenre.map((genre, idx) => {
+                                {genreList.map((genre, idx) => {
                                     return <MenuItem key={idx} value={genre}>{genre}</MenuItem>
                                 })}
                             </Select>

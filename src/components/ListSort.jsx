@@ -13,7 +13,7 @@ const styles = theme => ({
 
 class ListSort extends Component {
     state = {
-        anchorEl: null,
+        anchorEl: null
     }
 
     handleClick = event => {
@@ -37,13 +37,13 @@ class ListSort extends Component {
                     <SortIcon />
                 </IconButton>
             </Tooltip>,
-            <Menu key={1} id='sort-menu' open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose}>
-                <ClickAwayListener onClickAway={this.handleClose()}>
+            <ClickAwayListener key={1} onClickAway={this.handleClose()}>
+                <Menu id='sort-menu' open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose}>
                     <MenuItem onClick={this.handleClose('none')}><em>{i18n.list.tooltips.none}</em></MenuItem>
                     <MenuItem onClick={this.handleClose('book-title')}>{i18n.list.tooltips.sortBookTitle}</MenuItem>
                     <MenuItem onClick={this.handleClose('author-name')}>{i18n.list.tooltips.sortAuthorName}</MenuItem>
-                </ClickAwayListener>
-            </Menu>
+                </Menu>
+            </ClickAwayListener>
         ]
     }
 }

@@ -8,9 +8,9 @@ export default class App extends Component {
         isLoaded: false,
         data: null
     }
-    async componentDidMount() {
-        const json = await fetch('/books_list.json')
-        this.setState({ isLoaded: true, data: await json.json() })
+    async componentWillMount() {
+        const blob = await fetch('/books_list.json')
+        this.setState({ isLoaded: true, data: await blob.json() })
     }
 
     render() {

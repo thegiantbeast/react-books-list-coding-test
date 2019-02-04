@@ -10,10 +10,15 @@ const styles = theme => ({
     root: {
         width: '100%',
         marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto',
+        overflowX: 'auto'
     },
     table: {
-        minWidth: 700,
+        minWidth: 920
+    },
+    thead: {
+        backgroundColor: '#fff',
+        position: 'sticky',
+        top: 0
     },
 })
 
@@ -25,12 +30,12 @@ class ListTable extends Component {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <TableCell>{/* Indication Icon */}</TableCell>
-                        <TableCell>{i18n.list.title}</TableCell>
-                        <TableCell>{i18n.list.authorName}</TableCell>
-                        <TableCell>{i18n.list.authorGender}</TableCell>
-                        <TableCell>{i18n.list.genre}</TableCell>
-                        <TableCell>{i18n.list.publishDate}</TableCell>
+                        <TableCell className={classes.thead}>{/* Indication Icon */}</TableCell>
+                        <TableCell className={classes.thead}>{i18n.list.title}</TableCell>
+                        <TableCell className={classes.thead}>{i18n.list.authorName}</TableCell>
+                        <TableCell className={classes.thead}>{i18n.list.authorGender}</TableCell>
+                        <TableCell className={classes.thead}>{i18n.list.genre}</TableCell>
+                        <TableCell className={classes.thead}>{i18n.list.publishDate}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
