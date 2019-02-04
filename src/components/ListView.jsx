@@ -5,7 +5,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Brightness2Icon from '@material-ui/icons/Brightness2'
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
 import ListToolbar from './ListToolbar'
-import ListTable from './ListTable';
+import ListTable from './ListTable'
 
 const styles = theme => ({
     row: {
@@ -22,7 +22,15 @@ class ListView extends Component {
     lastFridayDates = []
 
     state = {
+        originalData: null,
+        data: null,
         dateTimeFormat: new Intl.DateTimeFormat(this.props.i18n.dateTimeFormat)
+    }
+
+    componentWillReceiveProps(props) {
+        if (props.data) {
+            this.setState({ originalData: props.data, data: props.data })
+        }
     }
 
     isLastFridayOfMonth = (date) => {
@@ -38,17 +46,54 @@ class ListView extends Component {
         return lastDayMonth.getDate() === date.getDate()
     }
 
+    sortFn = (arr, prop) => {
+        prop = prop.split('.')
+        const len = prop.length
+    
+        arr.sort((a, b) => {
+            let i = 0
+            while( i < len ) {
+                a = a[prop[i]]
+                b = b[prop[i]]
+                i++
+            }
+
+            if (a < b) {
+                return -1
+            } else if (a > b) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+
+        return arr
+    }
+
+    sortBy = (option) => {        
+        if (option === 'none') {
+            this.setState({ data: this.state.originalData })
+        } else {
+            option = option === 'book-title' ? 'title' : 'author.name'
+            this.setState({ data: this.sortFn(this.state.originalData, option) })
+        }
+    }
+
+    filterBy = (option) => {
+    }
+
     render() {
         if (!this.props.isLoaded) { // data is not ready yet...
             return null
         }
 
-        const { classes, i18n, data } = this.props
+        const { classes, i18n } = this.props
+        const { data } = this.state
 
         return [
-            <ListToolbar key={0} i18n={i18n} />,
+            <ListToolbar key={0} i18n={i18n} sortBy={this.sortBy} filterBy={this.filterBy} />,
             <ListTable key={1} i18n={i18n}>
-                {data.slice(0, 10).map((row, idx) => {
+                {data.slice(0, 1000).map((row, idx) => {
                     let icon = null
 
                     const date = new Date(row.publish_date * 1000)

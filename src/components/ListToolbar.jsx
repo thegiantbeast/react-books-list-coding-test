@@ -13,6 +13,7 @@ const styles = theme => ({
         flex: '1 1 100%',
     },
     actions: {
+        flex: '0 4 100%',
         color: theme.palette.text.secondary,
     },
     title: {
@@ -22,7 +23,7 @@ const styles = theme => ({
 
 class ListToolbar extends Component {
     render() {
-        const { classes, i18n } = this.props
+        const { classes, i18n, sortBy, filterBy } = this.props
 
         return (
             <Toolbar className={classes.root}>
@@ -33,8 +34,8 @@ class ListToolbar extends Component {
                 </div>
                 <div className={classes.spacer} />
                 <div className={classes.actions}>
-                    <ListSort i18n={i18n} />
-                    <ListFilter i18n={i18n} />
+                    <ListSort i18n={i18n} sortBy={sortBy} />
+                    <ListFilter i18n={i18n} filterBy={filterBy} />
                 </div>
             </Toolbar>
         )
