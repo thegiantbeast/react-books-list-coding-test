@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import i18n from '../../translations.json'
+import i18n from '../translations.json'
 import Loader from './Loader'
 import ListView from './ListView'
 
