@@ -5,18 +5,10 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Tooltip from '@material-ui/core/Tooltip'
-import IconButton from '@material-ui/core/IconButton'
-import SortIcon from '@material-ui/icons/Sort'
-import FilterListIcon from '@material-ui/icons/FilterList'
 import Brightness2Icon from '@material-ui/icons/Brightness2'
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
-import Grow from '@material-ui/core/Grow'
-import Paper from '@material-ui/core/Paper'
-import Popper from '@material-ui/core/Popper'
-import MenuItem from '@material-ui/core/MenuItem'
-import MenuList from '@material-ui/core/MenuList'
+import ListSort from './ListSort'
+import ListFilter from './ListFilter'
 
 const styles = theme => ({
     root: {
@@ -65,35 +57,9 @@ class ListView extends Component {
         const { classes, i18n, data } = this.props
 
         return <div>
-            <Tooltip title={i18n.list.tooltips.sort}>
-                <IconButton buttonRef={node => { this.sortEl = node }} aria-label={i18n.list.tooltips.sort}>
-                    <SortIcon />
-                </IconButton>
-            </Tooltip>
-            <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
-                {({ TransitionProps, placement }) => (
-                    <Grow
-                        {...TransitionProps}
-                        id="menu-list-grow"
-                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                    >
-                        <Paper>
-                        <ClickAwayListener onClickAway={this.handleClose}>
-                            <MenuList>
-                            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                            <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                            <MenuItem onClick={this.handleClose}>Logout</MenuItem>
-                            </MenuList>
-                        </ClickAwayListener>
-                        </Paper>
-                    </Grow>
-                )}
-            </Popper>
-            <Tooltip title={i18n.list.tooltips.filter}>
-                <IconButton buttonRef={node => { this.filterEl = node }} aria-label={i18n.list.tooltips.filter}>
-                    <FilterListIcon />
-                </IconButton>
-            </Tooltip>
+            <ListSort i18n={i18n} />
+            <ListFilter i18n={i18n} />
+            
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
