@@ -35,9 +35,9 @@ class ListSort extends Component {
                 </IconButton>
             </Tooltip>,
             <Menu key={1} id='sort-menu' open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose}>
-                <MenuItem onClick={this.handleClose('none')}>None</MenuItem>
-                <MenuItem onClick={this.handleClose('book-title')}>Book Title</MenuItem>
-                <MenuItem onClick={this.handleClose('author-name')}>Author Name</MenuItem>
+                <MenuItem onClick={this.handleClose('none')}>{i18n.list.tooltips.none}</MenuItem>
+                <MenuItem onClick={this.handleClose('book-title')}>{i18n.list.tooltips.sortBookTitle}</MenuItem>
+                <MenuItem onClick={this.handleClose('author-name')}>{i18n.list.tooltips.sortAuthorName}</MenuItem>
             </Menu>
         ]
     }

@@ -4,8 +4,13 @@
     "appTitle": "Books List",
     "list": {
         "tooltips": {
+            "none": "None",
             "sort": "Sort List",
-            "filter": "Filter List"
+            "sortBookTitle": "Book Tittle",
+            "sortAuthorName": "Author Name",
+            "filter": "Filter List",
+            "filterGenre": "Genre",
+            "filterAuthorGender": "Author Gender"
         },
         "title": "Book Title",
         "authorName": "Author Name",
