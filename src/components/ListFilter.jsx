@@ -8,6 +8,7 @@ import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 
 const styles = theme => ({
     root: {
@@ -43,7 +44,7 @@ class ListFilter extends Component {
         this.props.filterBy(event.target.name, event.target.value)
     }
 
-    handleClose = option => () => {
+    handleClose = () => {
         this.setState({ anchorEl: null })
     }
 
@@ -58,29 +59,31 @@ class ListFilter extends Component {
                 </IconButton>
             </Tooltip>,
             <Menu key={1} id='filter-menu' open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose}>
-                <div className={classes.root}>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="filter-genre">{i18n.list.tooltips.filterGenre}</InputLabel>
-                        <Select value={this.state.genre} onChange={this.handleChange} inputProps={{ name: 'genre', id: 'filter-genre' }}>
-                            <MenuItem value="">
-                                <em>{i18n.list.tooltips.none}</em>
-                            </MenuItem>
-                            {filterGenre.map((genre, idx) => {
-                                return <MenuItem key={idx} value={genre}>{genre}</MenuItem>
-                            })}
-                        </Select>
-                    </FormControl>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="filter-authorGender">{i18n.list.tooltips.filterAuthorGender}</InputLabel>
-                        <Select value={this.state.authorGender} onChange={this.handleChange} inputProps={{ name: 'authorGender', id: 'filter-authorGender' }}>
-                            <MenuItem value="">
-                                <em>{i18n.list.tooltips.none}</em>
-                            </MenuItem>
-                            <MenuItem value="{i18n.list.tooltips.filterGenderMale}">{i18n.list.tooltips.filterGenderMale}</MenuItem>
-                            <MenuItem value="{i18n.list.tooltips.filterGenderFemale}">{i18n.list.tooltips.filterGenderFemale}</MenuItem>
-                        </Select>
-                    </FormControl>
-                </div>
+                <ClickAwayListener onClickAway={this.handleClose}>
+                    <div className={classes.root}>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="filter-genre">{i18n.list.tooltips.filterGenre}</InputLabel>
+                            <Select value={this.state.genre} onChange={this.handleChange} inputProps={{ name: 'genre', id: 'filter-genre' }}>
+                                <MenuItem value="">
+                                    <em>{i18n.list.tooltips.none}</em>
+                                </MenuItem>
+                                {filterGenre.map((genre, idx) => {
+                                    return <MenuItem key={idx} value={genre}>{genre}</MenuItem>
+                                })}
+                            </Select>
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="filter-authorGender">{i18n.list.tooltips.filterAuthorGender}</InputLabel>
+                            <Select value={this.state.authorGender} onChange={this.handleChange} inputProps={{ name: 'authorGender', id: 'filter-authorGender' }}>
+                                <MenuItem value="">
+                                    <em>{i18n.list.tooltips.none}</em>
+                                </MenuItem>
+                                <MenuItem value="{i18n.list.tooltips.filterGenderMale}">{i18n.list.tooltips.filterGenderMale}</MenuItem>
+                                <MenuItem value="{i18n.list.tooltips.filterGenderFemale}">{i18n.list.tooltips.filterGenderFemale}</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                </ClickAwayListener>
             </Menu>
         ]
     }
