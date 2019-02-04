@@ -1,6 +1,7 @@
 {
     "dateTimeFormat": "en-GB",
     "loading": "Loading...",
+    "appTitle": "Books List",
     "list": {
         "tooltips": {
             "sort": "Sort List",

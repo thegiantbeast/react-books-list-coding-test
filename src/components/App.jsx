@@ -16,7 +16,6 @@ export default class App extends Component {
     render() {
         return [
             <Loader key={0} i18n={i18n} isLoaded={this.state.isLoaded} />,
-            //<Form key={1} />,
             <ListView key={2} i18n={i18n} {...this.state} />
         ]
     }

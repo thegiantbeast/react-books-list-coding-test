@@ -19,12 +19,12 @@ class ListSort extends Component {
         const { i18n } = this.props
 
         return [
-            <Tooltip title={i18n.list.tooltips.sort}>
+            <Tooltip key={0} title={i18n.list.tooltips.sort}>
                 <IconButton buttonRef={node => { this.sortEl = node }} aria-label={i18n.list.tooltips.sort}>
                     <SortIcon />
                 </IconButton>
             </Tooltip>,
-            <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
+            <Popper key={1} open={open} anchorEl={this.anchorEl} transition disablePortal>
                 {({ TransitionProps, placement }) => (
                     <Grow
                         {...TransitionProps}
@@ -32,13 +32,12 @@ class ListSort extends Component {
                         style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
                     >
                         <Paper>
-                        <ClickAwayListener onClickAway={this.handleClose}>
-                            <MenuList>
-                            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                            <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                            <MenuItem onClick={this.handleClose}>Logout</MenuItem>
-                            </MenuList>
-                        </ClickAwayListener>
+                            <ClickAwayListener onClickAway={this.handleClose}>
+                                <MenuList>
+                                <MenuItem onClick={this.handleClose}>Book Title</MenuItem>
+                                <MenuItem onClick={this.handleClose}>Author Name</MenuItem>
+                                </MenuList>
+                            </ClickAwayListener>
                         </Paper>
                     </Grow>
                 )}

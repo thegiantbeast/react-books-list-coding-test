@@ -19,11 +19,30 @@ class ListFilter extends Component {
         const { i18n } = this.props
 
         return [
-            <Tooltip title={i18n.list.tooltips.filter}>
+            <Tooltip key={0} title={i18n.list.tooltips.filter}>
                 <IconButton buttonRef={node => { this.filterEl = node }} aria-label={i18n.list.tooltips.filter}>
                     <FilterListIcon />
                 </IconButton>
-            </Tooltip>
+            </Tooltip>,
+            <Popper key={1} open={open} anchorEl={this.anchorEl} transition disablePortal>
+                {({ TransitionProps, placement }) => (
+                    <Grow
+                        {...TransitionProps}
+                        id="menu-list-grow"
+                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                    >
+                        <Paper>
+                            <ClickAwayListener onClickAway={this.handleClose}>
+                                <MenuList>
+                                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                                <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                                </MenuList>
+                            </ClickAwayListener>
+                        </Paper>
+                    </Grow>
+                )}
+            </Popper>
         ]
     }
 }
