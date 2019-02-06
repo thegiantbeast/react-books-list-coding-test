@@ -1,60 +1,77 @@
 import React, { Component } from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import TableCell from '@material-ui/core/TableCell'
-import TableRow from '@material-ui/core/TableRow'
-import Brightness2Icon from '@material-ui/icons/Brightness2'
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
+// import { withStyles } from '@material-ui/core/styles'
 import ListToolbar from './ListToolbar'
 import ListTable from './ListTable'
+import ListRow from './ListRow'
 
-const styles = theme => ({
-    row: {
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.background.default,
-        },
-    },
-    moon: {
-        transform: 'rotate(180deg)'
-    }
-})
-
-class ListView extends Component {
-    lastFridayDates = []
-
+export default class ListView extends Component {
     state = {
-        originalData: null,
         data: null,
-        genre: [],
-        dateTimeFormat: new Intl.DateTimeFormat(this.props.i18n.dateTimeFormat)
+        genreList: [],
+        clientHeight: 0,
+        scrollTop: 0,
+        toolbarHeight: 64,
+        tableMinWidth: 920,
+        rowHeight: 30 // 48 limitation
+    }
+
+    componentDidMount() {
+        window.addEventListener('resize', this.handleWindowResize)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize)
+        this.node.removeEventListener('scroll', this.handleNodeScroll)
+    }
+
+    handleWindowResize = (event) => {
+        // console.log(`clientHeight: ${this.node.clientHeight}`)
+        this.setState({ clientHeight: this.node.clientHeight })
+    }
+
+    handleNodeScroll = (event) => {
+        // console.log(`scrollTop: ${this.node.scrollTop}`)
+        this.setState({ scrollTop: this.node.scrollTop })
+
+        this.node.children[0].style.paddingTop = `${this.node.scrollTop}px`
+    }
+
+    attachScrollListener = (node) => {
+        if (node) {
+            this.node = node
+            this.node.addEventListener('scroll', this.handleNodeScroll)
+
+            // now that we have the element, lets trigger the first resize call
+            // in order to get the `this.node` height
+            window.dispatchEvent(new Event('resize'))
+        }
     }
 
     componentWillReceiveProps(props) {
         if (props.data) {
-            const genre = [...new Set(props.data.map(item => item.genre))]
-            this.setState({ originalData: props.data, data: props.data, genre })
+            const genres = []
+
+            // add column for the default sorting + fill all genres
+            // note: avods having the original copy of the array in case of 'none' sort
+            for(let i = 0; i < props.data.length; i++) {
+                props.data.default_order = i
+                genres.push(props.data[i].genre)
+            }
+
+            // use just the unique values from genres array
+            const genreList = [...new Set(genres)]
+
+            this.setState({ data: props.data, genreList })
         }
-    }
-
-    isLastFridayOfMonth = (date) => {
-        const lastDayMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-        const fridayOffset = lastDayMonth.getDay() - 5
-
-        if (fridayOffset < 0) {
-            lastDayMonth.setDate(lastDayMonth.getDate() + (Math.abs(fridayOffset) - 7))
-        } else {
-            lastDayMonth.setDate(lastDayMonth.getDate() - fridayOffset)
-        }
-
-        return lastDayMonth.getDate() === date.getDate()
     }
 
     sortFn = (arr, prop) => {
         prop = prop.split('.')
         const len = prop.length
-    
+
         arr.sort((a, b) => {
             let i = 0
-            while( i < len ) {
+            while (i < len) {
                 a = a[prop[i]]
                 b = b[prop[i]]
                 i++
@@ -74,7 +91,7 @@ class ListView extends Component {
 
     sortBy = (option) => {
         let fieldName = null
-        switch(option) {
+        switch (option) {
             case 'book-title':
                 fieldName = 'title'
                 break
@@ -84,8 +101,13 @@ class ListView extends Component {
             default:
                 fieldName = 'default_order'
         }
-        
-        this.setState({ data: this.sortFn(this.state.data, fieldName) })
+
+        // schedule the sorting for a later stage in order to
+        // give the browser time to close the panel and appear to be more
+        // responsive to the user eyes
+        setTimeout(() => {
+            this.setState({ data: this.sortFn(this.state.data, fieldName) })
+        }, 100)
     }
 
     filterBy = (field, value) => {
@@ -101,13 +123,32 @@ class ListView extends Component {
         }
 
         const { i18n } = this.props
-        const { data, genreList } = this.state
+        const { clientHeight, scrollTop, rowHeight, toolbarHeight, tableMinWidth, data, genreList } = this.state
+        const MAX_RECORDS = 1000000
+
+        const currentIndex = Math.floor(scrollTop / rowHeight)
+        const startIndex = Math.max(0, currentIndex - 10)
+        const startBuffer = currentIndex - startIndex
+        const endIndex = Math.min(MAX_RECORDS, currentIndex + Math.ceil(clientHeight / rowHeight) + 10)
+
+        const rows = data.slice(startIndex, endIndex).map((item, idx) => {
+            return <ListRow key={idx} i18n={i18n} item={item} height={rowHeight} />
+        })
+
+        // const customStyle = { paddingTop: 150 } TODO: set table padding-top
+        const s = {
+            height: toolbarHeight
+        }
 
         return [
-            <ListToolbar key={0} i18n={i18n} sortBy={this.sortBy} filterBy={this.filterBy} genreList={genreList} />,
-            <ListTable key={1} i18n={i18n}>
-                <ListItem i18n={i18n} data={data} />
-            </ListTable>
+            <ListToolbar key={0} i18n={i18n} sortBy={this.sortBy} filterBy={this.filterBy} genreList={genreList} height={toolbarHeight} tableMinWidth={tableMinWidth} />,
+            <div key={1} ref={this.attachScrollListener} style={{ height: `calc(100vh - ${toolbarHeight}px)`, overflowY: 'scroll' }}>
+                <div style={{ height: 33420600 }}>
+                    <ListTable i18n={i18n} minWidth={tableMinWidth}>
+                        {rows}
+                    </ListTable>
+                </div>
+            </div>
         ]
     }
 

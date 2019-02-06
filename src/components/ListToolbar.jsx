@@ -7,8 +7,7 @@ import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
     root: {
-        justifyContent: 'space-between',
-        minWidth: 920 - 24 * 2 // min-width - padding-left - padding-right
+        justifyContent: 'space-between'
     },
     actions: {
         color: theme.palette.text.secondary
@@ -17,10 +16,12 @@ const styles = theme => ({
 
 class ListToolbar extends Component {
     render() {
-        const { classes, i18n, sortBy, filterBy, genreList } = this.props
+        const { classes, height, tableMinWidth, i18n, sortBy, filterBy, genreList } = this.props
+
+        const minWidth = tableMinWidth - 24 * 2 // = min-width - padding-left - padding-right
 
         return (
-            <Toolbar className={classes.root}>
+            <Toolbar className={classes.root} style={{ height, minWidth }}>
                 <Typography variant="h6">
                     {i18n.appTitle}
                 </Typography>

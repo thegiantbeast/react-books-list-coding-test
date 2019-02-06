@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -12,10 +12,7 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto'
     },
-    table: {
-        minWidth: 920
-    },
-    thead: {
+    tableHeadCell: {
         backgroundColor: '#fff',
         position: 'sticky',
         top: 0
@@ -24,18 +21,18 @@ const styles = theme => ({
 
 class ListTable extends Component {
     render() {
-        const { classes, i18n, children } = this.props
+        const { classes, minWidth, i18n, children } = this.props
 
         return (
-            <Table className={classes.table}>
+            <Table className={classes.table} style={{ minWidth }}>
                 <TableHead>
                     <TableRow>
-                        <TableCell className={classes.thead}>{/* Indication Icon */}</TableCell>
-                        <TableCell className={classes.thead}>{i18n.list.title}</TableCell>
-                        <TableCell className={classes.thead}>{i18n.list.authorName}</TableCell>
-                        <TableCell className={classes.thead}>{i18n.list.authorGender}</TableCell>
-                        <TableCell className={classes.thead}>{i18n.list.genre}</TableCell>
-                        <TableCell className={classes.thead}>{i18n.list.publishDate}</TableCell>
+                        <TableCell className={classes.tableHeadCell}>{/* Indication Icon */}</TableCell>
+                        <TableCell className={classes.tableHeadCell}>{i18n.list.title}</TableCell>
+                        <TableCell className={classes.tableHeadCell}>{i18n.list.authorName}</TableCell>
+                        <TableCell className={classes.tableHeadCell}>{i18n.list.authorGender}</TableCell>
+                        <TableCell className={classes.tableHeadCell}>{i18n.list.genre}</TableCell>
+                        <TableCell className={classes.tableHeadCell}>{i18n.list.publishDate}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
