@@ -17,7 +17,10 @@ const styles = theme => ({
 })
 
 function Loader(props) {
-    const {classes} = props
+    const { classes, isLoaded } = props
+
+    if (isLoaded) return null
+
     return (
         <div className={classes.wrapper} style={{ display: props.isLoaded ? 'none' : '' }} >
             <div className={classes.progress}>
