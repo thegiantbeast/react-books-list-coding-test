@@ -52,6 +52,11 @@ class ListFilter extends Component {
         const { classes, i18n, genreList } = this.props
         const { anchorEl } = this.state
 
+        let genreMenuItems = []
+        for(let i = 0; i < genreList.length; i++) {
+            genreMenuItems.push(<MenuItem key={i} value={genreList[i]}>{genreList[i]}</MenuItem>)
+        }
+
         return [
             <Tooltip key={0} title={i18n.list.tooltips.filter}>
                 <IconButton aria-owns={anchorEl ? 'filter-menu' : undefined} aria-haspopup="true" onClick={this.handleClick}>
@@ -67,9 +72,7 @@ class ListFilter extends Component {
                                 <MenuItem value="">
                                     <em>{i18n.list.tooltips.none}</em>
                                 </MenuItem>
-                                {genreList.map((genre, idx) => {
-                                    return <MenuItem key={idx} value={genre}>{genre}</MenuItem>
-                                })}
+                                {genreMenuItems}
                             </Select>
                         </FormControl>
                         <FormControl className={classes.formControl}>
