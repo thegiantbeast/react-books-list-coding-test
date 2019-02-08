@@ -32,7 +32,7 @@ class ListFilter extends Component {
     state = {
         anchorEl: null,
         genre: '',
-        authorGender: ''
+        'author.gender': ''
     }
 
     handleClick = event => {
@@ -63,30 +63,26 @@ class ListFilter extends Component {
                     <FilterListIcon />
                 </IconButton>
             </Tooltip>,
-            <Menu key={1} id='filter-menu' open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose}>
-                <ClickAwayListener onClickAway={this.handleClose}>
-                    <div className={classes.root}>
-                        <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="filter-genre">{i18n.list.tooltips.filterGenre}</InputLabel>
-                            <Select value={this.state.genre} onChange={this.handleChange} inputProps={{ name: 'genre', id: 'filter-genre' }}>
-                                <MenuItem value="">
-                                    <em>{i18n.list.tooltips.none}</em>
-                                </MenuItem>
-                                {genreMenuItems}
-                            </Select>
-                        </FormControl>
-                        <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="filter-authorGender">{i18n.list.tooltips.filterAuthorGender}</InputLabel>
-                            <Select value={this.state.authorGender} onChange={this.handleChange} inputProps={{ name: 'authorGender', id: 'filter-authorGender' }}>
-                                <MenuItem value="">
-                                    <em>{i18n.list.tooltips.none}</em>
-                                </MenuItem>
-                                <MenuItem value="{i18n.list.tooltips.filterGenderMale}">{i18n.list.tooltips.filterGenderMale}</MenuItem>
-                                <MenuItem value="{i18n.list.tooltips.filterGenderFemale}">{i18n.list.tooltips.filterGenderFemale}</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </div>
-                </ClickAwayListener>
+            <Menu key={1} id='filter-menu' className={classes.root} open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose}>
+                <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="filter-genre">{i18n.list.tooltips.filterGenre}</InputLabel>
+                    <Select value={this.state.genre} onChange={this.handleChange} inputProps={{ name: 'genre', id: 'filter-genre' }}>
+                        <MenuItem value="none">
+                            <em>{i18n.list.tooltips.none}</em>
+                        </MenuItem>
+                        {genreMenuItems}
+                    </Select>
+                </FormControl>
+                <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="filter-authorGender">{i18n.list.tooltips.filterAuthorGender}</InputLabel>
+                    <Select value={this.state['author.gender']} onChange={this.handleChange} inputProps={{ name: 'author.gender', id: 'filter-authorGender' }}>
+                        <MenuItem value="none">
+                            <em>{i18n.list.tooltips.none}</em>
+                        </MenuItem>
+                        <MenuItem value={i18n.list.tooltips.filterGenderMale}>{i18n.list.tooltips.filterGenderMale}</MenuItem>
+                        <MenuItem value={i18n.list.tooltips.filterGenderFemale}>{i18n.list.tooltips.filterGenderFemale}</MenuItem>
+                    </Select>
+                </FormControl>
             </Menu>
         ]
     }

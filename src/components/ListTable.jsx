@@ -8,15 +8,15 @@ import TableCell from '@material-ui/core/TableCell'
 
 const styles = theme => ({
     root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto'
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
     },
-    tableHeadCell: {
-        backgroundColor: '#fff',
-        position: 'sticky',
-        top: 0
-    },
+    iconColumn: {
+        padding: 0
+    }
 })
 
 class ListTable extends Component {
@@ -24,15 +24,15 @@ class ListTable extends Component {
         const { classes, minWidth, i18n, children } = this.props
 
         return (
-            <Table className={classes.table} style={{ minWidth }}>
+            <Table className={classes.root} style={{ minWidth }}>
                 <TableHead>
                     <TableRow>
-                        <TableCell className={classes.tableHeadCell}>{/* Indication Icon */}</TableCell>
-                        <TableCell className={classes.tableHeadCell}>{i18n.list.title}</TableCell>
-                        <TableCell className={classes.tableHeadCell}>{i18n.list.authorName}</TableCell>
-                        <TableCell className={classes.tableHeadCell}>{i18n.list.authorGender}</TableCell>
-                        <TableCell className={classes.tableHeadCell}>{i18n.list.genre}</TableCell>
-                        <TableCell className={classes.tableHeadCell}>{i18n.list.publishDate}</TableCell>
+                        <TableCell className={classes.iconColumn}>{/* Indication Icon */}</TableCell>
+                        <TableCell>{i18n.list.title}</TableCell>
+                        <TableCell>{i18n.list.authorName}</TableCell>
+                        <TableCell>{i18n.list.authorGender}</TableCell>
+                        <TableCell>{i18n.list.genre}</TableCell>
+                        <TableCell>{i18n.list.publishDate}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

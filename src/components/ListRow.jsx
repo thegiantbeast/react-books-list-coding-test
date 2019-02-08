@@ -11,7 +11,21 @@ const styles = theme => ({
             backgroundColor: theme.palette.background.default
         },
     },
-    moon: {
+    iconColumn: {
+        width: 24,
+        paddingRight: 0,
+        paddingLeft: 10
+    },
+    titleColumn: {
+        width: 700
+    },
+    authorColumn: {
+        width: 300
+    },
+    genreColumn: {
+        width: 122
+    },
+    moonIcon: {
         transform: 'rotate(180deg)'
     }
 })
@@ -45,7 +59,7 @@ class ListRow extends Component {
 
         // display a moon icon if genre is horror and is halloween day
         if (item.genre === 'Horror' && date.getDate() === 31 && date.getMonth() === 9) {
-            icon = <Brightness2Icon className={classes.moon} />
+            icon = <Brightness2Icon className={classes.moonIcon} />
         }
 
         // display dollar icon if genre is finance and is last friday of the month
@@ -60,11 +74,11 @@ class ListRow extends Component {
 
         return (
             <TableRow className={classes.row} style={{ height }}>
-                <TableCell>{icon}</TableCell>
-                <TableCell>{item.title}</TableCell>
-                <TableCell>{item.author.name}</TableCell>
+                <TableCell className={classes.iconColumn}>{icon}</TableCell>
+                <TableCell className={classes.titleColumn}>{item.title}</TableCell>
+                <TableCell className={classes.authorColumn}>{item.author.name}</TableCell>
                 <TableCell>{item.author.gender}</TableCell>
-                <TableCell>{item.genre}</TableCell>
+                <TableCell className={classes.genreColumn}>{item.genre}</TableCell>
                 <TableCell>{dateFormatted}</TableCell>
             </TableRow>
         )
