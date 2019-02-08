@@ -35,5 +35,3 @@ class ListToolbar extends Component {
 }
 
 export default withStyles(styles)(ListToolbar)
-
-
