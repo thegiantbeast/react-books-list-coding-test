@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import i18n from '../translations.json'
 import Loader from './Loader'
 import ListView from './ListView'
@@ -22,7 +23,8 @@ export default class App extends Component {
 
     render() {
         return [
-            <Loader key={0} i18n={i18n} isLoaded={this.state.isLoaded} />,
+            <CssBaseline key={0} />,
+            <Loader key={1} i18n={i18n} isLoaded={this.state.isLoaded} />,
             this.state.isLoaded ? <ListView key={2} i18n={i18n} {...this.state} /> : null
         ]
     }
