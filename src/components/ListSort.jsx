@@ -31,18 +31,20 @@ class ListSort extends Component {
         const { i18n } = this.props
         const { anchorEl } = this.state
 
-        return [
-            <Tooltip key={0} title={i18n.list.tooltips.sort}>
-                <IconButton aria-owns={anchorEl ? 'sort-menu' : undefined} aria-haspopup="true" onClick={this.handleClick}>
-                    <SortIcon />
-                </IconButton>
-            </Tooltip>,
-            <Menu key={1} id='sort-menu' open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose()}>
-                <MenuItem onClick={this.handleClose('none')}><em>{i18n.list.tooltips.none}</em></MenuItem>
-                <MenuItem onClick={this.handleClose('book-title')}>{i18n.list.tooltips.sortBookTitle}</MenuItem>
-                <MenuItem onClick={this.handleClose('author-name')}>{i18n.list.tooltips.sortAuthorName}</MenuItem>
-            </Menu>
-        ]
+        return (
+            <React.Fragment>
+                 <Tooltip key={0} title={i18n.list.tooltips.sort}>
+                    <IconButton aria-owns={anchorEl ? 'sort-menu' : undefined} aria-haspopup="true" onClick={this.handleClick}>
+                        <SortIcon />
+                    </IconButton>
+                </Tooltip>
+                <Menu key={1} id='sort-menu' open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose()}>
+                    <MenuItem onClick={this.handleClose('none')}><em>{i18n.list.tooltips.none}</em></MenuItem>
+                    <MenuItem onClick={this.handleClose('book-title')}>{i18n.list.tooltips.sortBookTitle}</MenuItem>
+                    <MenuItem onClick={this.handleClose('author-name')}>{i18n.list.tooltips.sortAuthorName}</MenuItem>
+                </Menu>
+            </React.Fragment>
+        )
     }
 }
 

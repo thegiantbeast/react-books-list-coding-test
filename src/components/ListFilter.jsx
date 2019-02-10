@@ -8,7 +8,6 @@ import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 
 const styles = theme => ({
     root: {
@@ -57,34 +56,36 @@ class ListFilter extends Component {
             genreMenuItems.push(<MenuItem key={i} value={genreList[i]}>{genreList[i]}</MenuItem>)
         }
 
-        return [
-            <Tooltip key={0} title={i18n.list.tooltips.filter}>
-                <IconButton aria-owns={anchorEl ? 'filter-menu' : undefined} aria-haspopup="true" onClick={this.handleClick}>
-                    <FilterListIcon />
-                </IconButton>
-            </Tooltip>,
-            <Menu key={1} id='filter-menu' className={classes.root} open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose}>
-                <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="filter-genre">{i18n.list.tooltips.filterGenre}</InputLabel>
-                    <Select value={this.state.genre} onChange={this.handleChange} inputProps={{ name: 'genre', id: 'filter-genre' }}>
-                        <MenuItem value="none">
-                            <em>{i18n.list.tooltips.none}</em>
-                        </MenuItem>
-                        {genreMenuItems}
-                    </Select>
-                </FormControl>
-                <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="filter-authorGender">{i18n.list.tooltips.filterAuthorGender}</InputLabel>
-                    <Select value={this.state['author.gender']} onChange={this.handleChange} inputProps={{ name: 'author.gender', id: 'filter-authorGender' }}>
-                        <MenuItem value="none">
-                            <em>{i18n.list.tooltips.none}</em>
-                        </MenuItem>
-                        <MenuItem value={i18n.list.tooltips.filterGenderMale}>{i18n.list.tooltips.filterGenderMale}</MenuItem>
-                        <MenuItem value={i18n.list.tooltips.filterGenderFemale}>{i18n.list.tooltips.filterGenderFemale}</MenuItem>
-                    </Select>
-                </FormControl>
-            </Menu>
-        ]
+        return (
+            <React.Fragment>
+                <Tooltip key={0} title={i18n.list.tooltips.filter}>
+                    <IconButton aria-owns={anchorEl ? 'filter-menu' : undefined} aria-haspopup="true" onClick={this.handleClick}>
+                        <FilterListIcon />
+                    </IconButton>
+                </Tooltip>
+                <Menu key={1} id='filter-menu' className={classes.root} open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose}>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="filter-genre">{i18n.list.tooltips.filterGenre}</InputLabel>
+                        <Select value={this.state.genre} onChange={this.handleChange} inputProps={{ name: 'genre', id: 'filter-genre' }}>
+                            <MenuItem value="none">
+                                <em>{i18n.list.tooltips.none}</em>
+                            </MenuItem>
+                            {genreMenuItems}
+                        </Select>
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="filter-authorGender">{i18n.list.tooltips.filterAuthorGender}</InputLabel>
+                        <Select value={this.state['author.gender']} onChange={this.handleChange} inputProps={{ name: 'author.gender', id: 'filter-authorGender' }}>
+                            <MenuItem value="none">
+                                <em>{i18n.list.tooltips.none}</em>
+                            </MenuItem>
+                            <MenuItem value={i18n.list.tooltips.filterGenderMale}>{i18n.list.tooltips.filterGenderMale}</MenuItem>
+                            <MenuItem value={i18n.list.tooltips.filterGenderFemale}>{i18n.list.tooltips.filterGenderFemale}</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Menu>
+            </React.Fragment>
+        )
     }
 }
 
