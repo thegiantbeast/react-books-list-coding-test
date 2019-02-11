@@ -58,12 +58,12 @@ class ListFilter extends Component {
 
         return (
             <React.Fragment>
-                <Tooltip key={0} title={i18n.list.tooltips.filter}>
+                <Tooltip title={i18n.list.tooltips.filter}>
                     <IconButton aria-owns={anchorEl ? 'filter-menu' : undefined} aria-haspopup="true" onClick={this.handleClick}>
                         <FilterListIcon />
                     </IconButton>
                 </Tooltip>
-                <Menu key={1} id='filter-menu' className={classes.root} open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose}>
+                <Menu id='filter-menu' className={classes.root} open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleClose}>
                     <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="filter-genre">{i18n.list.tooltips.filterGenre}</InputLabel>
                         <Select value={this.state.genre} onChange={this.handleChange} inputProps={{ name: 'genre', id: 'filter-genre' }}>

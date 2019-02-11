@@ -24,9 +24,9 @@ export default class App extends Component {
     render() {
         return (
             <React.Fragment>
-                <CssBaseline key={0} />
-                <Loader key={1} i18n={i18n} isLoaded={this.state.isLoaded} />
-                {this.state.isLoaded ? (<ListView key={2} i18n={i18n} {...this.state} />) : null}
+                <CssBaseline />
+                <Loader i18n={i18n} isLoaded={this.state.isLoaded} />
+                {this.state.isLoaded ? (<ListView i18n={i18n} {...this.state} />) : null}
             </React.Fragment>
         )
     }

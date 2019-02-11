@@ -168,8 +168,8 @@ export default class ListView extends Component {
 
         return (
             <React.Fragment>
-                <ListToolbar key={0} i18n={i18n} sortBy={this.sortBy} filterBy={this.filterBy} genreList={genreList} height={toolbarHeight} tableMinWidth={tableMinWidth} />
-                <div key={1} ref="container" style={{ height: `calc(100vh - ${toolbarHeight}px)`, overflowY: 'scroll' }}>
+                <ListToolbar i18n={i18n} sortBy={this.sortBy} filterBy={this.filterBy} genreList={genreList} height={toolbarHeight} tableMinWidth={tableMinWidth} />
+                <div ref="container" style={{ height: `calc(100vh - ${toolbarHeight}px)`, overflowY: 'scroll' }}>
                     <div style={{ height: contentHeight, position: 'relative' }}>
                         <ListTable i18n={i18n} minWidth={tableMinWidth}>
                             {rows}
