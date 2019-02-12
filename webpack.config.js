@@ -31,6 +31,7 @@ module.exports = {
 		new webpack.HotModuleReplacementPlugin()
 	],
 	devServer: {
+		host: '0.0.0.0',
 		contentBase: './assets',
 		hot: true
 	}
